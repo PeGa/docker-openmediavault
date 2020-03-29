@@ -14,8 +14,8 @@ RUN 	export DEBIAN_FRONTEND=noninteractive && \
 	echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections && \
 	sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list && \
 	apt-get update && \
-	apt-get install -y --no-install-recommends --no-install-suggests wget && \
-	wget --no-check-certificate -O "/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc" https://packages.openmediavault.org/public/archive.key && \
+	apt-get install -y --no-install-recommends --no-install-suggests wget ca-certificates && \
+	wget -O "/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc" https://packages.openmediavault.org/public/archive.key && \
 	mv /openmediavault.list /etc/apt/sources.list.d/ && \
 	apt-get update && \
 	apt-get install -y --no-install-recommends --no-install-suggests -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
