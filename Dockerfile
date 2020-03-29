@@ -17,7 +17,7 @@ RUN 	export DEBIAN_FRONTEND=noninteractive && \
 	sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list && \
 	apt update && \
 	apt install -y wget && \
-	wget -O "/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc" https://packages.openmediavault.org/public/archive.key && \
+	wget --no-check-certificate -O "/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc" https://packages.openmediavault.org/public/archive.key && \
 	mv /openmediavault.list /etc/apt/sources.list.d/ && \
 	apt update && \
 	apt install -y \
