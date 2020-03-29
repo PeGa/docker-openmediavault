@@ -12,13 +12,13 @@ COPY omv-startup /usr/sbin/omv-startup
 
 RUN 	export DEBIAN_FRONTEND=noninteractive && \
 	echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections && \
-	sed -i 's/main/main contrib non-free/g' /etc/apt-get/sources.list && \
-	apt-get update && \
-	apt-get install -y wget && \
-	wget -O "/etc/apt-get/trusted.gpg.d/openmediavault-archive-keyring.asc" https://packages.openmediavault.org/public/archive.key && \
-	mv /openmediavault.list /etc/apt-get/sources.list.d/ && \
-	apt-get update && \
-	apt-get install -y \
+	sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list && \
+	apt update && \
+	apt install -y wget && \
+	wget -O "/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc" https://packages.openmediavault.org/public/archive.key && \
+	mv /openmediavault.list /etc/apt/sources.list.d/ && \
+	apt update && \
+	apt install -y \
 		openmediavault-keyring \
 		postfix \
 		locales \
