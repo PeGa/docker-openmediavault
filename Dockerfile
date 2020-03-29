@@ -18,7 +18,7 @@ RUN 	export DEBIAN_FRONTEND=noninteractive && \
 	wget --no-check-certificate -O "/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc" https://packages.openmediavault.org/public/archive.key && \
 	mv /openmediavault.list /etc/apt/sources.list.d/ && \
 	apt-get update && \
-	apt-get install -y --no-install-recommends --no-install-suggests \
+	apt-get install -y --no-install-recommends --no-install-suggests -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
 		openmediavault-keyring \
 		postfix \
 		locales \
