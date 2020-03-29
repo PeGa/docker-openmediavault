@@ -11,6 +11,8 @@ COPY defaults/rrdcached /etc/default
 COPY omv-startup /usr/sbin/omv-startup
 
 RUN 	export DEBIAN_FRONTEND=noninteractive && \
+	echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/99unattended && \
+	echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/99unattended && \
 	echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections && \
 	sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list && \
 	apt update && \
