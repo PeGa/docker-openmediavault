@@ -11,16 +11,14 @@ COPY defaults/rrdcached /etc/default
 COPY omv-startup /usr/sbin/omv-startup
 
 RUN 	export DEBIAN_FRONTEND=noninteractive && \
-	echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/99unattended && \
-	echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/99unattended && \
 	echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections && \
 	sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list && \
-	apt update && \
-	apt install -y wget && \
+	apt-get update && \
+	apt-get install -y --no-install-recommends --no-install-suggests wget && \
 	wget --no-check-certificate -O "/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc" https://packages.openmediavault.org/public/archive.key && \
 	mv /openmediavault.list /etc/apt/sources.list.d/ && \
-	apt update && \
-	apt install -y \
+	apt-get update && \
+	apt-get install -y --no-install-recommends --no-install-suggests \
 		openmediavault-keyring \
 		postfix \
 		locales \
