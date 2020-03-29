@@ -1,10 +1,14 @@
-FROM debian:wheezy
+FROM debian:stretch
 
-MAINTAINER Ilya Kogan <ikogan@flarecode.com>
+MAINTAINER PeGa! <dev@pega.sh>
+
+RUN 	sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list && \
+	apt update && \
+	apt install -y wget && \
+	wget -O "/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc" https://packages.openmediavault.org/public/archive.key
 
 # Add the OpenMediaVault repository
 COPY openmediavault.list /etc/apt/sources.list.d/
-
 ENV DEBIAN_FRONTEND noninteractive
 
 # Fix resolvconf issues with Docker
@@ -12,7 +16,10 @@ RUN echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-
 
 # Install OpenMediaVault packages and dependencies
 RUN apt-get update -y; apt-get install openmediavault-keyring postfix locales -y --force-yes
+
+
 RUN apt-get update -y; apt-get install openmediavault -y
+
 
 # We need to make sure rrdcached uses /data for it's data
 COPY defaults/rrdcached /etc/default
